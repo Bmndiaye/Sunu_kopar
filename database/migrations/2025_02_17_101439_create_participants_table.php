@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('participants', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('idUser');
+            $table->unsignedBigInteger('iduser');
             $table->date('dateNaissance');
             $table->string('cni')->unique();
             $table->string('adresse');
             $table->string('imageCni')->nullable();
             $table->timestamps();
 
-            $table->foreign('idUser')->references('id')->on('users');
+            $table->foreign('iduser')->references('id')->on('users');
         });
     }
 

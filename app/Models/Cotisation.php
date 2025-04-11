@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Cotisation extends Model
 {
     protected $fillable = [
-        'idUser',
-        'idTontine',
+        'iduser',
+        'idtontine',
         'montant',
-        'moyen_paiement'
+        'moyen_paiement',
+        'created_at'
     ];
 }

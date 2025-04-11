@@ -23,6 +23,7 @@ class AuthController extends Controller
         if (Auth::attempt($auth)) {
             $request->session()->regenerate();
             $user = Auth::user();
+            // dd($user);
 
             // Assigner un rôle si l'utilisateur n'en a pas encore
             if (!$user->hasAnyRole(['SUPER_ADMIN', 'GERANT', 'PARTICIPANT'])) {
@@ -33,7 +34,7 @@ class AuthController extends Controller
             if ($user->hasRole('SUPER_ADMIN')) {
                 return redirect()->route('admin');
             } elseif ($user->hasRole('GERANT')) {
-                return redirect()->route('gerant.dashboard');
+                return redirect()->route('admin');
             } elseif ($user->hasRole('PARTICIPANT')) {
                 return redirect()->route('participant.dashboard'); // Modifie ici si nécessaire
             }
@@ -51,6 +52,19 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/login');
     }
+    public function navbar()
+    {
+        $user = Auth::user();
+    
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Veuillez vous connecter.');
+        }
+    
+       
+    }
+    
+
+
 }

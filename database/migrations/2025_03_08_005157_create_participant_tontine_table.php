@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('participant_tontine', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('idUser');
-            $table->unsignedBigInteger('idTontine');
+            $table->unsignedBigInteger('iduser');
+            $table->unsignedBigInteger('idtontine');
             $table->timestamps();
+            $table->integer('ordre')->nullable()->after('idtontine');
+            $table->date('date_prevue')->nullable()->after('ordre');
 
-            $table->foreign('idUser')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('idTontine')->references('id')->on('tontines')->onDelete('cascade');
+            $table->foreign('iduser')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('idtontine')->references('id')->on('tontines')->onDelete('cascade');
         });
     }
 

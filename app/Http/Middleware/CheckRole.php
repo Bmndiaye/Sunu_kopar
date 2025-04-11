@@ -4,13 +4,13 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class CheckRole
+class CheckAuthenticated
 {
-    public function handle(Request $request, Closure $next, $role)
+    public function handle(Request $request, Closure $next)
     {
-        if (!auth()->user() || !auth()->user()->hasRole($role)) {
-            // Si l'utilisateur n'a pas le rôle requis, rediriger vers la page de connexion
-            return redirect()->route('login');
+        // Vérifie si l'utilisateur est authentifié
+        if (!auth()->check()) {
+            return redirect()->route('login'); // Redirige vers la page de connexion si non authentifié
         }
 
         return $next($request);

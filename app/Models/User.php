@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles; // Import du trait HasRoles
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Participant;
 
 
 class User extends Authenticatable
@@ -51,16 +52,30 @@ class User extends Authenticatable
 
     public function tontines()
     {
-        return $this->belongsToMany(Tontine::class, 'participants', 'idUser', 'idTontine');
+        return $this->belongsToMany(Tontine::class, 'participant_tontine', 'iduser', 'idtontine');
     }
+    
+    
     public function tirages(): HasMany
     {
-        return $this->hasMany(Tirage::class, 'idUser');
+        return $this->hasMany(Tirage::class, 'iduser');
     }
 
     public function user()
 {
-    return $this->belongsTo(User::class, 'idUser');
+    return $this->belongsTo(User::class, 'iduser');
 }
+
+
+public function participations()
+{
+    return $this->hasMany(Participant::class, 'iduser');
+}
+public function aDejaParticipe($tontineId)
+{
+    return $this->tontines()->wherePivot('idtontine', $tontineId)->exists();
+}
+
+
 
 }

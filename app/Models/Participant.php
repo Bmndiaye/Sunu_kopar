@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Participant extends Model
 {
     protected $fillable = [
-        'idUser',
+        'iduser',
         'dateNaissance',
         'cni',
         'adresse',
@@ -19,8 +19,17 @@ class Participant extends Model
     // Définir la relation avec le modèle User
     public function user()
     {
-        return $this->belongsTo(User::class, 'idUser');
+        return $this->belongsTo(User::class, 'iduser');
     }
+
+    public function tontine()
+    {
+        return $this->belongsTo(Tontine::class, 'tontine_id');
+    }
+    
+
+
+    
 }
 
 

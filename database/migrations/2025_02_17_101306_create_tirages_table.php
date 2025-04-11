@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('tirages', function (Blueprint $table) {
             //$table->id();
-            $table->unsignedBigInteger('idUser');
-            $table->unsignedBigInteger('idTontine');
-            $table->primary(['idUser', 'idTontine']);
+            $table->unsignedBigInteger('iduser');
+            $table->unsignedBigInteger('idtontine');
+            $table->primary(['iduser', 'idtontine']);
             $table->timestamps();
 
-            $table->foreign('idUser')->references('id')->on('users');
-            $table->foreign('idTontine')->references('id')->on('tontines');
+            $table->foreign('iduser')->references('id')->on('users');
+            $table->foreign('idtontine')->references('id')->on('tontines');
         });
     }
 

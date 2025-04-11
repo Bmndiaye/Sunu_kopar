@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\DataTables\ParticipantsGerantsDataTable;
+use Yajra\DataTables\Facades\DataTables;
+
+
 
 class AdminController extends Controller
 {
@@ -11,6 +15,8 @@ class AdminController extends Controller
     {
         return view('admin.dashboard');
     }
+
+    
 
     public function userList()
     {
@@ -25,6 +31,14 @@ class AdminController extends Controller
     {
         return view('admin.detailTontine');
     }
+
+
+
+public function index1(ParticipantsGerantsDataTable $dataTable)
+{
+    return $dataTable->render('admin.participants_gerants.index');
+}
+
     
 
 

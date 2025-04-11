@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,14 +11,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('cotisations', function (Blueprint $table) {
-            $table->unsignedBigInteger('idUser');
-            $table->unsignedBigInteger('idTontine');
-            $table->primary(['idUser', 'idTontine']);
+            $table->id(); // Identifiant unique pour chaque cotisation
+            $table->unsignedBigInteger('iduser');
+            $table->unsignedBigInteger('idtontine');
             $table->integer('montant');
             $table->enum('moyen_paiement', ['ESPECES', 'WAVE', 'OM']);
-            $table->timestamps();
-            $table->foreign('idUser')->references('id')->on('users');
-            $table->foreign('idTontine')->references('id')->on('tontines');
+            $table->timestamps(); // Ajoute les colonnes created_at et updated_at
+
+            // Ajout des clés étrangères
+            $table->foreign('iduser')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('idtontine')->references('id')->on('tontines')->onDelete('cascade');
         });
     }
 

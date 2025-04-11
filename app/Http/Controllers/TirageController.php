@@ -26,14 +26,16 @@ class TirageController extends Controller
         return view('tirage.index', compact('participants', 'gagnants', 'dernierGagnant'));
     }
 
-    public function effectuerTirage($idTontine)
+    public function effectuerTirage($idtontine)
     {
         // Vérifier si la tontine existe
-        $tontine = Tontine::findOrFail($idTontine);
+        $tontine = Tontine::findOrFail($idtontine);
     
-        // Récupérer les participants éligibles
-        $participants = User::whereDoesntHave('tirages', function ($query) use ($idTontine) {
-            $query->where('idTontine', $idTontine);
+        // Récupérer les participants éligibles qui n'ont pas encore été tirés
+        $participants = User::whereHas('tontines', function ($query) use ($idtontine) {
+            $query->where('tontines.id', $idtontine);
+        })->whereDoesntHave('tirages', function ($query) use ($idtontine) {
+            $query->where('idtontine', $idtontine);
         })->get();
     
         // Vérifier s'il reste des participants
@@ -41,17 +43,17 @@ class TirageController extends Controller
             return response()->json(['message' => 'Tous les participants ont déjà été tirés.'], 400);
         }
     
-        // Sélectionner un gagnant
+        // Sélectionner un gagnant aléatoire
         $winner = $participants->random();
     
         // Envoyer un e-mail de notification au gagnant
         $mail = new WinnerNotificationMail($winner, $tontine);
-
         \Mail::to($winner->email)->send($mail);    
+    
         // Enregistrer le tirage en base
         Tirage::create([
-            'idUser' => $winner->id,
-            'idTontine' => $idTontine,
+            'iduser' => $winner->id,
+            'idtontine' => $idtontine,
         ]);
     
         return response()->json([
@@ -59,4 +61,5 @@ class TirageController extends Controller
             'winner' => $winner->prenom . ' ' . $winner->nom,
         ]);
     }
+    
 }

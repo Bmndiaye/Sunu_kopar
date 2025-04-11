@@ -10,8 +10,10 @@
         "barryvdh/laravel-dompdf": "^3.1",
         "laravel/framework": "^11.31",
         "laravel/tinker": "^2.9",
+        "nesbot/carbon": "^3.8",
         "simplesoftwareio/simple-qrcode": "^4.2",
-        "spatie/laravel-permission": "^6.16"
+        "spatie/laravel-permission": "^6.16",
+        "yajra/laravel-datatables-oracle": "^11.1"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

@@ -4,21 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo; // ✅ IMPORTATION ICI
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Tirage extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['idUser', 'idTontine'];
+    protected $fillable = ['iduser', 'idtontine'];
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo // ✅ Ajout du namespace complet
     {
-        return $this->belongsTo(User::class, 'idUser');
+        return $this->belongsTo(User::class, 'iduser');
     }
 
     public function tontine(): \Illuminate\Database\Eloquent\Relations\BelongsTo // ✅ Ajout du namespace complet
     {
-        return $this->belongsTo(Tontine::class, 'idTontine');
+        return $this->belongsTo(Tontine::class, 'idtontine');
     }
 }
