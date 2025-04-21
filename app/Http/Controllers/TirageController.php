@@ -14,13 +14,10 @@ class TirageController extends Controller
 {
     public function index()
     {
-        // Récupérer les participants avec les informations utilisateur associées
         $participants = Participant::with('user')->get();
 
-        // Récupérer l'historique des 10 derniers gagnants
         $gagnants = Tirage::with('user')->latest()->take(10)->get();
 
-        // Récupérer le dernier gagnant
         $dernierGagnant = Tirage::with('user')->latest()->first();
 
         return view('tirage.index', compact('participants', 'gagnants', 'dernierGagnant'));

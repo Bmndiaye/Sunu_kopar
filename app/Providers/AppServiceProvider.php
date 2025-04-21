@@ -4,10 +4,10 @@ namespace App\Providers;
 
 use Illuminate\Database\Schema\Builder;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\URL; 
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 
-use Illuminate\Support\Facades\Auth; // Ajoutez cette ligne
-use Illuminate\Support\Facades\View; // Ajoutez cette ligne
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -30,15 +30,19 @@ class AppServiceProvider extends ServiceProvider
         }
 
         View::composer('*', function ($view) {
-            
-            $view->with('authUser', Auth::user());
-        });
+            $authUser = Auth::user();
+            $unreadMessages = 0;
 
+            if ($authUser) {
+                $unreadMessages = \App\Models\Message::where('user_id', '!=', $authUser->id)
+                    ->where('is_read', false)
+                    ->count();
+            }
+
+            $view->with([
+                'authUser' => $authUser,
+                'unreadMessagesCount' => $unreadMessages,
+            ]);
+        });
     }
 }
-
-
-
-
-
-

@@ -7,6 +7,7 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles; // Import du trait HasRoles
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\Participant;
+use App\Models\messageModel;
 
 
 class User extends Authenticatable
@@ -76,6 +77,16 @@ public function aDejaParticipe($tontineId)
     return $this->tontines()->wherePivot('idtontine', $tontineId)->exists();
 }
 
+// app/Models/User.php
+// Si tu as déjà ceci :
+public function messages() {
+    return $this->hasMany(Message::class); // pour messagerie privée
+}
+
+// Alors ajoute celui-ci avec un nom plus spécifique
+public function commentairesTontine() {
+    return $this->hasMany(Message::class);
+}
 
 
 }

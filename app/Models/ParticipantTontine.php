@@ -29,3 +29,4 @@ class ParticipantTontine extends Model
         return $this->belongsTo(Tontine::class, 'idtontine');
     }
 }
+

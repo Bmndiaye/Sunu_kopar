@@ -14,8 +14,10 @@ use App\Http\Controllers\UserController;
 use App\DataTables\ParticipantsGerantsDataTable;
 
 
+
 use App\Http\Controllers\RoleController;
 
+use App\Http\Controllers\MessageController;
 
 
 use Illuminate\Support\Facades\Route;
@@ -47,7 +49,7 @@ Route::post('login', [AuthController::class, 'auth'])->name('auth.store');
 Route::post('logout', [AuthController::class, 'destroy'])->name('logout');
 
 
-
+Route::post('/gerant/tontines/ajouter', [TontineController::class, 'store'])->name('gerant.ajouterTontine');
 
 // Route::get('admin', [AdminController::class, 'index']);
 Route::get('/admin', [AdminController::class, 'index'])->name('admin');
@@ -64,9 +66,9 @@ Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 //     Route::get('/participant/dashboard', [AdminController::class, 'index'])->name('participant.dashboard');
 // });
 Route::middleware(['auth'])->group(function () {
-    Route::get('/participant/dashboard', [AdminController::class, 'index'])->name('participant.dashboard');
+Route::get('/participant/dashboard', [AdminController::class, 'index'])->name('participant.dashboard');
 
-    Route::get('/tirage', [TirageController::class, 'index'])->name('tirage.index');
+Route::get('/tirage', [TirageController::class, 'index'])->name('tirage.index');
 Route::post('/tirage/draw', [TirageController::class, 'draw'])->name('tirage.draw');
 Route::post('/tirage/{idtontine}', [TirageController::class, 'effectuerTirage'])->name('tirage.effectuer');
 
@@ -113,8 +115,6 @@ Route::put('/admin/users/{user}', [UserController::class, 'update'])->name('admi
 Route::get('assign-permissions-super', [RoleController::class, 'assignPermissionsToSuperRole'])->name('assign.permissions.super');
 
 
-
-
 Route::get('/users/{id}', [UserController::class, 'profile'])->name('user.profile');
 
 // });
@@ -127,8 +127,18 @@ Route::get('/tontines/par-telephone/{telephone}', [CotisationController::class, 
 Route::post('/cotisations', [CotisationController::class, 'store'])->name('cotisations.store');
 
 Route::get('/cotisations', [CotisationController::class, 'create'])->name('participant.cotisation');
-
 Route::get('/user/calendrier', [CotisationController::class, 'afficherCalendrier'])->name('user.calendrier');
+Route::post('/gerant/tontines/creer', [TontineController::class, 'creerTontine'])->name('gerant.creerTontine');
+Route::post('/gerant/tontines/{id}/demarrer', [TontineController::class, 'demarrerTontine'])->name('gerant.demarrerTontine');
+
+// Dans routes/web.php
+Route::get('/tontines/{id}', [TontineController::class, 'show'])->name('detail.tontine');
+Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
+Route::post('/tontine/messages', [MessageController::class, 'store'])->name('user.messages.store');
+Route::put('/messages/{id}', [MessageController::class, 'update'])->name('messages.update');
+    Route::delete('/messages/{id}', [MessageController::class, 'destroy'])->name('messages.destroy');
+    Route::post('/tontine/{tontineId}/messages/read', [MessageController::class, 'markAsRead'])->name('messages.read');
+    Route::get('/messages/read-and-show', [MessageController::class, 'markAsReadAndRedirect'])->name('messages.read_and_show');
 
 });
 

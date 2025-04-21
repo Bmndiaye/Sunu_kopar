@@ -132,6 +132,30 @@
                                     <span class="item-name">Espace Cotisation</span>
                                 </a>
                             </li>
+
+                                                     
+    <li class="nav-item">
+        <a class="nav-link " href="{{ route('tirage.index') }}">
+            <i class="icon material-symbols-outlined">casino</i>
+            <span class="item-name">Tirage au sort</span>
+        </a>
+    </li>
+<li>
+<li>
+<a class="nav-link" href="{{ route('messages.index') }}">
+        <i class="icon material"></i>
+        <span class="item-name">Discussion</span>
+
+        @if(!empty($unreadMessagesCount) && $unreadMessagesCount > 0)
+            <span class="badge bg-danger ms-2">{{ $unreadMessagesCount }}</span>
+        @endif
+    </a>
+</li>
+
+
+
+</li>
+    
                     </li>
                 @endif
                 
@@ -175,6 +199,17 @@
              <span class="item-name">Espaces Cotisations</span>
                                 </a>
     </li>
+    <li>
+    <a class="nav-link" href="{{ route('messages.index') }}">
+        <i class="icon material"></i>
+        <span class="item-name">Discussion</span>
+
+        @if(!empty($unreadMessagesCount) && $unreadMessagesCount > 0)
+            <span class="badge bg-danger ms-2">{{ $unreadMessagesCount }}</span>
+        @endif
+    </a>
+</li>
+
                           
 @endif
 

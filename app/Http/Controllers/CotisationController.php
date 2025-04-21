@@ -92,8 +92,13 @@ class CotisationController extends Controller
         $user = User::findOrFail($validatedData['iduser']);
         
         // Envoyer un e-mail de notification de facture
-        $mail = new FactureNotificationMail($cotisation, $tontine);
-        \Mail::to($user->email)->send($mail);
+        try {
+            \Mail::to($user->email)->send(new FactureNotificationMail($cotisation, $tontine));
+            $user->notify(new \App\Notifications\FactureNotificationSms($cotisation, $tontine));
+        } catch (\Exception $e) {
+            Log::warning('Erreur lors de l\'envoi des notifications.', ['exception' => $e->getMessage()]);
+        }
+        
         
         return response()->json([
             'message' => 'Cotisation enregistrée avec succès.',

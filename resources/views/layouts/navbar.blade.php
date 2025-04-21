@@ -172,58 +172,25 @@
           </a>
         </li>
         <li class="nav-item dropdown">
-          <a href="javascript:void(0);" class="search-toggle dropdown-toggle d-flex align-items-center" id="notification-drop" data-bs-toggle="dropdown">
-            <span class="material-symbols-outlined position-relative">notifications
-              <span class="bg-primary text-white notification-badge"></span>
-            </span>
-          </a>
-          <div class="sub-drop dropdown-menu header-notification" aria-labelledby="notification-drop">
-            <div class="card m-0 shadow">
-              <div class="card-header d-flex justify-content-between px-0 pb-4 mx-5 border-bottom">
-                <div class="header-title">
-                  <h5 class="fw-semibold">Notifications</h5>
-                </div>
-                <h6 class="material-symbols-outlined">settings</h6>
-              </div>
-              <div class="card-body">
-                <div class="item-header-scroll">
-                  <a href="javascript:void(0);">
-                    <div class="d-flex gap-3 mb-4">
-                      <img class="avatar-32 rounded-pill" src="data:image/png;base64,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" alt="">
-                      <div>
-                        <h6 class="font-size-14">Pete Sariya <span class="text-body fw-normal">voted for</span> combination of colors from your brand palette </h6>
-                        <small class="text-body fw-500">1 month ago</small>
-                      </div>
-                    </div>
-                  </a>
-                  <a href="javascript:void(0);">
-                    <div class="d-flex gap-3 mb-4">
-                      <img class="avatar-32 rounded-pill" src="#" alt="" loading="lazy">
-                      <div>
-                        <h6 class="font-size-14">Dima Davydov <span class="text-body fw-normal">replied to your</span>
-                          <span class="text-primary fw-semibold">comment</span>
-                        </h6>
-                        <small class="text-body fw-500">1 month ago</small>
-                      </div>
-                    </div>
-                  </a>
-                  <a href="javascript:void(0);">
-                    <div class="d-flex gap-3 mb-4">
-                      <img class="avatar-32 rounded-pill" src="../assets/images/user/03.jpg" alt="" loading="lazy">
-                      <div>
-                        <h6 class="font-size-14">Esther Howard <span class="text-body fw-normal">reacted comment in to your </span>
-                          <span class="text-primary fw-semibold">post</span>.
-                        </h6>
-                        <small class="text-body fw-500">19 min ago</small>
-                      </div>
-                    </div>
-                  </a>
-                </div>  
-                <button type="button" class="btn btn-primary fw-500 w-100">View All Notifications</button>
-              </div>
-            </div>
-          </div>
-        </li>
+        <a class="nav-link" href="{{ route('messages.index') }}">
+
+        <span class="material-symbols-outlined position-relative">
+            notifications
+
+            @if(!empty($unreadMessagesCount) && $unreadMessagesCount > 0)
+            <span class="badge bg-primary text-white position-absolute top-0 start-100 translate-middle rounded-circle">
+                    {{ $unreadMessagesCount }}
+                </span>
+            @endif
+        </span>
+
+
+        
+
+      
+    </a>
+</li>
+
         <li class="nav-item d-none d-lg-none">
           <a href="#" class="dropdown-toggle d-flex align-items-center" id="mail-drop-1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="material-symbols-outlined">mail</i>
