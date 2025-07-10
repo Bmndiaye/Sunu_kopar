@@ -297,7 +297,7 @@ body {
                                         <div class="collapse" id="permissions-{{ $role->id }}">
                                             <div class="mt-2">
                                                 @foreach($role->permissions as $permission)
-                                                    <span class="badge bg-info me-1">{{ $permission->name }}</span>
+                                                    <span class="badge bg-info me-1">{{ $permission->n0m }}</span>
                                                 @endforeach
                                             </div>
                                         </div>

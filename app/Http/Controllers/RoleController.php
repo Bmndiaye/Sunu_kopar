@@ -148,4 +148,14 @@ class RoleController extends Controller
         return redirect()->route('admin.roles')->with('success', 'Les permissions ont été assignées au rôle SUPER_ADMIN avec succès.');
     }
     
+    public function removePermissionFromRole($roleId, $permissionId)
+{
+    $role = Role::findOrFail($roleId);
+    $permission = Permission::findOrFail($permissionId);
+    
+    $role->revokePermissionTo($permission);
+
+    return redirect()->back()->with('success', 'Permission retirée avec succès du rôle.');
+}
+
 }

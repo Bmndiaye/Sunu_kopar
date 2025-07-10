@@ -155,41 +155,61 @@ class CotisationController extends Controller
         return view('admin.user-list', compact('user', 'calendriers'));
     }
     
-
     private function genererDatesACotiser($tontine)
     {
         $datesACotiser = [];
-        $dateDebut = Carbon::parse($tontine->dateDebut);
-        $dateFin = Carbon::parse($tontine->dateFin);
-    
-        $frequence = [
-            'JOURNALIERE' => 1, // En jours
-            'HEBDOMADAIRE' => 7, // En jours
-            'MENSUEL' => 1, // En mois
-            'TRIMESTRIEL' => 3 // En mois
-        ];
-    
-        $nextDate = $dateDebut->copy(); // Commencer à la date de début
+        $datedebut = Carbon::parse($tontine->datedebut);
+        
+        // Compter le nombre de participants dans cette tontine
+        $nombreParticipants = DB::table('participant_tontine')
+            ->where('idtontine', $tontine->id)
+            ->count();
+        
+        $nextDate = $datedebut->copy(); // Commencer à la date de début
         $user_id = Auth::id(); // Récupérer l'ID de l'utilisateur connecté
     
-        while ($nextDate->lte($dateFin)) {
+        // Générer exactement le nombre d'échéances = nombre de participants
+        for ($tour = 1; $tour <= $nombreParticipants; $tour++) {
             // Vérifier si une cotisation a été faite pour cette date
             $dejaCotise = Cotisation::where('idtontine', $tontine->id)
                 ->where('iduser', $user_id)
                 ->whereDate('created_at', $nextDate->format('Y-m-d'))
                 ->exists();
     
+            // Récupérer le bénéficiaire de ce tour
+            $beneficiaire = DB::table('participant_tontine')
+                ->join('users', 'users.id', '=', 'participant_tontine.iduser')
+                ->where('participant_tontine.idtontine', $tontine->id)
+                ->where('participant_tontine.ordre', $tour)
+                ->select('users.nom', 'users.prenom')
+                ->first();
+    
             $datesACotiser[] = [
+                'tour' => $tour,
                 'date' => $nextDate->format('d/m/Y'),
-                'dejaCotise' => $dejaCotise, // Ajouter l'info si la cotisation est faite ou pas
+                'dejaCotise' => $dejaCotise,
+                'beneficiaire' => $beneficiaire ? $beneficiaire->nom . ' ' . $beneficiaire->prenom : 'Non défini',
+                'montant_a_cotiser' => $tontine->montant_de_base,
+                'montant_total_tour' => $tontine->montant_de_base * $nombreParticipants,
             ];
     
-            // Ajouter l'intervalle correspondant à la fréquence
-            $nextDate = match ($tontine->frequence) {
-                'JOURNALIERE', 'HEBDOMADAIRE' => $nextDate->addDays($frequence[$tontine->frequence]),
-                'MENSUEL', 'TRIMESTRIEL' => $nextDate->addMonths($frequence[$tontine->frequence]),
-                default => null
-            };
+            // Ajouter l'intervalle correspondant à la fréquence pour la prochaine échéance
+            if ($tour < $nombreParticipants) { // Éviter d'ajouter après le dernier tour
+                switch ($tontine->frequence) {
+                    case 'JOURNALIERE':
+                        $nextDate->addDay();
+                        break;
+                    case 'HEBDOMADAIRE':
+                        $nextDate->addWeek();
+                        break;
+                    case 'MENSUEL':
+                        $nextDate->addMonth();
+                        break;
+                    case 'TRIMESTRIEL':
+                        $nextDate->addMonths(3);
+                        break;
+                }
+            }
         }
     
         return $datesACotiser;
@@ -204,7 +224,7 @@ class CotisationController extends Controller
             ->orderBy('participant_tontine.ordre')
             ->get();
 
-        $dateDebut = Carbon::parse($tontine->dateDebut);
+        $datedebut = Carbon::parse($tontine->datedebut);
         $frequence = [
             'JOURNALIERE' => 'addDays',
             'HEBDOMADAIRE' => 'addWeeks',
@@ -222,7 +242,7 @@ class CotisationController extends Controller
         }
 
         foreach ($participants as $participant) {
-            $datePrevue = $dateDebut->copy();
+            $datePrevue = $datedebut->copy();
 
             if ($tontine->frequence == 'JOURNALIERE' || $tontine->frequence == 'HEBDOMADAIRE') {
                 $intervalJours = $tontine->frequence == 'JOURNALIERE' ? 1 : 7;

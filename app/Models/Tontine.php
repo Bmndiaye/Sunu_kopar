@@ -44,6 +44,7 @@ class Tontine extends Model
         return $this->belongsTo(User::class, 'idCreateur');
     }
 
-  
+
+
     
 }

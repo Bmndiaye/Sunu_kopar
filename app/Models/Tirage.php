@@ -21,4 +21,6 @@ class Tirage extends Model
     {
         return $this->belongsTo(Tontine::class, 'idtontine');
     }
+
+
 }

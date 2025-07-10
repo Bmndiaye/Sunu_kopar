@@ -13,6 +13,7 @@
         "nesbot/carbon": "^3.8",
         "simplesoftwareio/simple-qrcode": "^4.2",
         "spatie/laravel-permission": "^6.16",
+        "yajra/laravel-datatables-buttons": "^11.2",
         "yajra/laravel-datatables-oracle": "^11.1"
     },
     "require-dev": {

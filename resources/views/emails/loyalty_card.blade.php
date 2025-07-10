@@ -40,7 +40,7 @@
 <div class="loyalty-card">
     <h2>Carte de Fidélité</h2>
     <p class="name">{{ $user->prenom }} {{ $user->nom }}</p>
-    <p>Merci de faire partie de notre programme de fidélité !</p>
+     Membre privilégié de Terangua Cash - Votre tontine digitale de confiance
     <p>Email : {{ $user->email }}</p>
 </div>
 

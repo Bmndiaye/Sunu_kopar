@@ -51,11 +51,10 @@ class InscriptionController extends Controller
             $participant->adresse = $request->adresse;
             $participant->save();
 
-            // Générer le QR Code
-            // $qrCode = QrCode::size(200)->generate($user->id);
+            // $qrCode = QrCode::size(200)->generate($user->telephone);
 
-            // // Enregistrer le QR Code en tant qu'image temporaire
-            // $qrCodePath = storage_path('app/public/qrcodes/user_' . $user->id . '.png');
+            // Enregistrer le QR Code en tant qu'image temporaire
+            // $qrCodePath = storage_path('app/public/qrcodes/user_' . $user->telephone . '.png');
             // \File::put($qrCodePath, $qrCode);
 
             // // Envoi de l'email avec le QR Code

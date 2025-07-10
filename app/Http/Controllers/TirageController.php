@@ -8,55 +8,102 @@ use App\Models\Tirage;
 use App\Models\Tontine;
 use App\Models\Participant;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\WinnerNotificationMail;  // Importation de la classe correcte WinnerNotificationMail
+use App\Mail\WinnerNotificationMail;
+use Exception;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;  // Assure-toi que cette ligne est ajoutée
 
 class TirageController extends Controller
 {
     public function index()
     {
-        $participants = Participant::with('user')->get();
+        // Get all active tontines for the dropdown
+        $tontines = Tontine::where('etat', 'en_attend')->get();
+    
+        // Get participants with user and tontine
+        $participants = Participant::with('user', 'tontine')
+        ->whereHas('user') // s'assure que le user existe
+        ->get();
+       
+    
+        // Get recent winners for history display
+        $gagnants = Tirage::with(['user:id,prenom,nom,email', 'tontine:id,libelle'])
+        ->latest()
+        ->take(10)
+        ->get();
+    
 
-        $gagnants = Tirage::with('user')->latest()->take(10)->get();
-
-        $dernierGagnant = Tirage::with('user')->latest()->first();
-
-        return view('tirage.index', compact('participants', 'gagnants', 'dernierGagnant'));
+    
+    
+        // Get the most recent winner
+        $dernierGagnant = Tirage::select('id', 'user_id', 'tontine_id', 'created_at')
+            ->with('user', 'tontine')
+            ->orderBy('created_at', 'desc')
+            ->first();
+    
+        return view('tirage.index', compact('participants', 'gagnants', 'dernierGagnant', 'tontines'));
     }
-
+    
+    
+    
     public function effectuerTirage($idtontine)
     {
-        // Vérifier si la tontine existe
-        $tontine = Tontine::findOrFail($idtontine);
-    
-        // Récupérer les participants éligibles qui n'ont pas encore été tirés
-        $participants = User::whereHas('tontines', function ($query) use ($idtontine) {
-            $query->where('tontines.id', $idtontine);
-        })->whereDoesntHave('tirages', function ($query) use ($idtontine) {
-            $query->where('idtontine', $idtontine);
-        })->get();
-    
-        // Vérifier s'il reste des participants
-        if ($participants->isEmpty()) {
-            return response()->json(['message' => 'Tous les participants ont déjà été tirés.'], 400);
+        try {
+            // Verify tontine exists
+            $tontine = Tontine::findOrFail($idtontine);
+            
+        
+
+            $participants = User::whereHas('tontines', function ($query) use ($idtontine) {
+                $query->where('idtontine', $idtontine);
+            })->whereDoesntHave('tirages', function ($query) use ($idtontine) {
+                $query->where('idtontine', $idtontine);
+            })->get();
+            
+            
+            
+            // Check if there are any participants left
+            if ($participants->isEmpty()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Tous les participants ont déjà été tirés pour cette tontine.'
+                ], 400);
+            }
+            
+            // Select a random winner
+            $winner = $participants->random();
+            
+            // Record the draw in the database
+            Tirage::create([
+                'iduser' => $winner->id,
+                'idtontine' => $idtontine,
+            ]);
+            
+            // Send notification email
+            try {
+                $mail = new WinnerNotificationMail($winner, $tontine);
+                Mail::to($winner->email)->send($mail);
+            } catch (Exception $e) {
+                // Log email failure but don't stop the process
+                Log::error('Failed to send winner notification email: ' . $e->getMessage());
+            }
+            
+            return response()->json([
+                'success' => true,
+                'message' => 'Tirage effectué avec succès.',
+                'winner' => $winner->prenom . ' ' . $winner->nom,
+                'tontine' => $tontine->libelle
+            ]);
+            
+        } catch (Exception $e) {
+            Log::error('Draw error: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Une erreur est survenue lors du tirage: ' . $e->getMessage()
+            ], 500);
         }
-    
-        // Sélectionner un gagnant aléatoire
-        $winner = $participants->random();
-    
-        // Envoyer un e-mail de notification au gagnant
-        $mail = new WinnerNotificationMail($winner, $tontine);
-        \Mail::to($winner->email)->send($mail);    
-    
-        // Enregistrer le tirage en base
-        Tirage::create([
-            'iduser' => $winner->id,
-            'idtontine' => $idtontine,
-        ]);
-    
-        return response()->json([
-            'message' => 'Tirage effectué avec succès.',
-            'winner' => $winner->prenom . ' ' . $winner->nom,
-        ]);
     }
-    
 }
+
+
+

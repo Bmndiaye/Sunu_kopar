@@ -5,7 +5,7 @@
             <svg width="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="..."></path>
             </svg>
-            <h3 class="logo-title" data-setting="app_name">Système Tontine</h3>
+            <h3 class="logo-title" data-setting="app_name">Sunu Kopar</h3>
         </a>
         <div class="sidebar-toggle" data-toggle="sidebar" data-active="true">
             <span class="menu-btn d-inline-block is-active">
@@ -23,69 +23,61 @@
                         <span class="item-name">Dashboard</span>
                     </a>
                 </li>
-                
-                <!-- Section SUPER_ADMIN -->
-             <!-- Section SUPER_ADMIN -->
-@if(Auth::user()->hasRole('SUPER_ADMIN'))
-<li>
-    <hr class="hr-horizontal">
-</li>
-<li class="nav-item static-item">
-    <a class="nav-link static-item disabled" href="#" tabindex="-1">
-        <span class="default-icon">SUPER_ADMIN</span>
-    </a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" data-bs-toggle="collapse" href="#admin-user-menu" role="button" aria-expanded="false" aria-controls="admin-user-menu">
-        <i class="icon material-symbols-outlined">admin_panel_settings</i>
-        <span class="item-name">Gestion Utilisateurs</span>
-        <i class="right-icon material-symbols-outlined">chevron_right</i>
-    </a>
-    <ul class="sub-nav collapse" id="admin-user-menu" data-bs-parent="#sidebar-menu">
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('admin.users') }}">
-                <i class="icon material-symbols-outlined">group</i>
-                <span class="item-name">Liste des utilisateurs</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('admin.roles') }}">
-                <i class="icon material-symbols-outlined">security</i>
-                <span class="item-name">Gestion des rôles</span>
-            </a>
-        </li>
-    </ul>
-</li>
-<li class="nav-item">
-    <a class="nav-link" data-bs-toggle="collapse" href="#admin-system-menu" role="button" aria-expanded="false" aria-controls="admin-system-menu">
-        <i class="icon material-symbols-outlined">settings_applications</i>
-        <span class="item-name">Configuration Système</span>
-        <i class="right-icon material-symbols-outlined">chevron_right</i>
-    </a>
-    <ul class="sub-nav collapse" id="admin-system-menu" data-bs-parent="#sidebar-menu">
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-                <i class="icon material-symbols-outlined">tune</i>
-                <span class="item-name">Paramètres système</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-                <i class="icon material-symbols-outlined">backup</i>
-                <span class="item-name">Sauvegardes</span>
-            </a>
-        </li>
-    </ul>
-</li>
-<!-- Logs Système -->
-<li class="nav-item">
-    <a class="nav-link" href="#">
-        <i class="icon material-symbols-outlined">receipt_long</i>
-        <span class="item-name">Logs système</span>
-    </a>
-</li>
-@endif
-                <!-- Section GERANT -->
+               
+                                
+                    @if(Auth::user()->hasRole('SUPER_ADMIN'))
+                    <li>
+                        <hr class="hr-horizontal">
+                    </li>
+                    <li class="nav-item static-item">
+                        <a class="nav-link static-item disabled" href="#" tabindex="-1">
+                            <span class="default-icon">SUPER_ADMIN</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#admin-user-menu" role="button" aria-expanded="false" aria-controls="admin-user-menu">
+                            <i class="icon material-symbols-outlined">admin_panel_settings</i>
+                            <span class="item-name">Listes Utilisateurs</span>
+                            <i class="right-icon material-symbols-outlined">chevron_right</i>
+                        </a>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('admin.users') }}">
+                                    <i class="icon material-symbols-outlined">group</i>
+                                    <span class="item-name">Gestion Utilisateurs</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('admin.roles') }}">
+                                    <i class="icon material-symbols-outlined">security</i>
+                                    <span class="item-name">Gestion Rôles</span>
+                                </a>
+                            </li>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#admin-system-menu" role="button" aria-expanded="false" aria-controls="admin-system-menu">
+                            <i class="icon material-symbols-outlined">settings_applications</i>
+                            <span class="item-name">Configuration Système</span>
+                            <i class="right-icon material-symbols-outlined">chevron_right</i>
+                        </a>
+                        <ul class="sub-nav collapse" id="admin-system-menu" data-bs-parent="#sidebar-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <i class="icon material-symbols-outlined">tune</i>
+                                    <span class="item-name">Paramètres système</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <i class="icon material-symbols-outlined">backup</i>
+                                    <span class="item-name">Sauvegardes</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- Logs Système -->
+                  
+                    @endif
+                                    <!-- Section GERANT -->
                 @if(Auth::user()->hasRole('GERANT'))
                     <li>
                         <hr class="hr-horizontal">
@@ -103,24 +95,24 @@
                             <i class="right-icon material-symbols-outlined">chevron_right</i>
                         </a>
                             
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a class="nav-link" href="{{ route('admin.user-list') }}">
                                     <i class="icon material-symbols-outlined">group</i>
                                     <span class="item-name">Liste des utilisateurs</span>
                                 </a>
-                            </li>
+                            </li> -->
 
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a class="nav-link" href="{{ route('admin.user-list') }}">
                                     <i class="icon material-symbols-outlined">group</i>
-                                    <span class="item-name">Liste des utilisateurs</span>
+                                    <span class="item-name">Liste utilisateurs</span>
                                 </a>
-                            </li>
+                            </li> -->
                             
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('gerant.tontines') }}">
                                     <i class="icon material-symbols-outlined">group</i>
-                                    <span class="item-name">Liste des Tontines</span>
+                                    <span class="item-name">Liste  Tontines</span>
                                 </a>
                             </li>
 
@@ -134,84 +126,84 @@
                             </li>
 
                                                      
-    <li class="nav-item">
-        <a class="nav-link " href="{{ route('tirage.index') }}">
-            <i class="icon material-symbols-outlined">casino</i>
-            <span class="item-name">Tirage au sort</span>
-        </a>
-    </li>
-<li>
-<li>
-<a class="nav-link" href="{{ route('messages.index') }}">
-        <i class="icon material"></i>
-        <span class="item-name">Discussion</span>
-
-        @if(!empty($unreadMessagesCount) && $unreadMessagesCount > 0)
-            <span class="badge bg-danger ms-2">{{ $unreadMessagesCount }}</span>
-        @endif
-    </a>
-</li>
-
-
-
-</li>
+                            <li class="nav-item">
+                                <a class="nav-link " href="{{ route('tirage.index') }}">
+                                    <i class="icon material-symbols-outlined">casino</i>
+                                    <span class="item-name">Tirage au sort</span>
+                                </a>
+                            </li>
+                        <li>
+                        <li>
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center position-relative" href="{{ route('messages.read_and_show') }}">
+                                <i class="icon material-symbols-outlined">chat_bubble_outline</i>
+                                <span class="item-name">Discussion</span>
+                                @if(!empty($unreadMessagesCount) && $unreadMessagesCount > 0)
+                                    <span class="badge bg-danger rounded-pill position-absolute top-25 start-75 translate-middle ms-2 d-flex align-items-center justify-content-center" style="min-width: 20px; height: 20px;">
+                                        {{ $unreadMessagesCount }}
+                                    </span>
+                                @endif
+                            </a>
+                        </li>
+               </li>
     
                     </li>
                 @endif
                 
                 <!-- Section PARTICIPANT -->
                 @if(Auth::user()->hasRole('PARTICIPANT'))
-    <li>
-        <hr class="hr-horizontal">
-    </li>
-    <li class="nav-item static-item">
-        <a class="nav-link static-item disabled" href="#" tabindex="-1">
-            <span class="default-icon">PARTICIPANT</span>
-        </a>
-    </li>
-    <!-- Mes Tontines -->
-
-    <li class="nav-item">
-                                <a class="nav-link" href="{{ route('gerant.tontines') }}">
-                                    <i class="icon material-symbols-outlined">group</i>
-                                    <span class="item-name">Liste des Tontines</span>
+                            <li>
+                                <hr class="hr-horizontal">
+                            </li>
+                            <li class="nav-item static-item">
+                                <a class="nav-link static-item disabled" href="#" tabindex="-1">
+                                    <span class="default-icon">PARTICIPANT</span>
                                 </a>
                             </li>
-                            
-    <li class="nav-item">
-        <a class="nav-link " href="{{ route('tirage.index') }}">
-            <i class="icon material-symbols-outlined">casino</i>
-            <span class="item-name">Tirage au sort</span>
-        </a>
-    </li>
-    <!-- Mes Cotisations -->
-    <li class="nav-item">
-        <a class="nav-link " href="#">
-            <i class="icon material-symbols-outlined">paid</i>
-            <span class="item-name">Mes Cotisations</span>
-        </a>
-    </li>
+    <!-- Mes Tontines -->
 
-
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('user.calendrier') }}">
-            <i class="icon material-symbols-outlined">group</i>
-             <span class="item-name">Espaces Cotisations</span>
+                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('gerant.tontines') }}">
+                                    <i class="icon material-symbols-outlined">group</i>
+                                    <span class="item-name">Listes  Tontines</span>
                                 </a>
-    </li>
-    <li>
-    <a class="nav-link" href="{{ route('messages.index') }}">
-        <i class="icon material"></i>
-        <span class="item-name">Discussion</span>
+                            </li>
+                                                
+                        <li class="nav-item">
+                            <a class="nav-link " href="{{ route('tirage.index') }}">
+                                <i class="icon material-symbols-outlined">casino</i>
+                                <span class="item-name">Tirage au sort</span>
+                            </a>
+                        </li>
+                        <!-- Mes Cotisations -->
+                        <li class="nav-item">
+                            <a class="nav-link " href="#">
+                                <i class="icon material-symbols-outlined">paid</i>
+                                <span class="item-name">Mes Cotisations</span>
+                            </a>
+                        </li>
 
-        @if(!empty($unreadMessagesCount) && $unreadMessagesCount > 0)
-            <span class="badge bg-danger ms-2">{{ $unreadMessagesCount }}</span>
-        @endif
-    </a>
-</li>
 
-                          
-@endif
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('user.calendrier') }}">
+                                <i class="icon material-symbols-outlined">group</i>
+                                <span class="item-name">Espaces Cotisations</span>
+                                                    </a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center position-relative" href="{{ route('messages.read_and_show') }}">
+                            <i class="icon material-symbols-outlined">chat_bubble_outline</i>
+                            <span class="item-name">Discussion</span>
+                            @if(!empty($unreadMessagesCount) && $unreadMessagesCount > 0)
+                                <span class="badge bg-danger rounded-pill position-absolute top-25 start-75 translate-middle ms-2 d-flex align-items-center justify-content-center" style="min-width: 20px; height: 20px;">
+                                    {{ $unreadMessagesCount }}
+                                </span>
+                            @endif
+                        </a>
+                    </li>
+
+                                            
+                    @endif
 
 
                 <!-- Utilitaires -->

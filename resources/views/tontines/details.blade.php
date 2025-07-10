@@ -408,8 +408,8 @@ n-content {
                             @endif -->
                                 <table class="table table-bordered">
                                     <tr><th>Fréquence :</th><td>{{ $tontine->frequence }}</td></tr>
-                                    <tr><th>Date de début :</th><td class="format-date">{{ $tontine->dateDebut }}</td></tr>
-                                    <tr><th>Date de fin :</th><td class="format-date">{{ $tontine->dateFin }}</td></tr>
+                                    <tr><th>Date de début :</th><td class="format-date">{{ $tontine->datedebut }}</td></tr>
+                                    <tr><th>Date de fin :</th><td class="format-date">{{ $tontine->datefin }}</td></tr>
                                     <tr><th>Montant par cotisation :</th><td class="format-number">{{ $tontine->montant }}</td></tr>
                                     <tr><th>État :</th><td>{{ $tontine->etat }}</td></tr>
                                 </table>
@@ -433,7 +433,6 @@ n-content {
                                         <th>Nom et Prénom</th>
                                         <th>Contacts</th>
                                         <th>Statut</th>
-                                        <th>Total payé</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -447,7 +446,6 @@ n-content {
                                                     {{ $participant->paymentStatus ?? 'Non évalué' }}
                                                 </span>
                                             </td>
-                                            <td class="format-number">{{ $participant->totalPaid ?? 0 }}</td>
                                             <td>
                                                 <button type="button" class="btn btn-sm btn-primary view-payments" 
                                                         data-participant-id="{{ $participant->id }}">

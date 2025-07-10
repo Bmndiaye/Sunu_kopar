@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Teranga Cash</title>
+    <title>sunukopar</title>
     <link rel="shortcut icon" href="../assets/images/favicon.ico" />
     <link rel="stylesheet" href="../assets/css/libs.min.css">
     <link rel="stylesheet" href="../assets/css/socialv.css?v=5.2.0">
@@ -74,17 +74,17 @@ table.dataTable{width:100%;margin:0 auto;clear:both;border-collapse:separate;bor
                 <div class="swiper mySwiper">
   <ul class="swiper-wrapper list-inline m-0 p-10">
     <li class="swiper-slide">
-      <img src="https://res-console.cloudinary.com/dtossohz4/thumbnails/v1/image/upload/v1744196323/eHh4eHh4eHh4eHh4eHh4eHh4eF9zd2Fmbmg=/drilldown" class="signin-img img-fluid mb-5 rounded-3" alt="image">
-      <h2 class="mb-3 text-white fw-semibold">Kopar Cash</h2>
+      <img src="https://media.licdn.com/dms/image/v2/C4E0BAQENBMJvOEvRig/company-logo_200_200/company-logo_200_200/0/1630563615927/kopar_logo?e=2147483647&v=beta&t=e2SWXK7L4K8j1yspQGW9Da604C_z7g5eblg9XAg9cUs" class="signin-img img-fluid mb-5 rounded-3" alt="image">
+      <h2 class="mb-3 text-white fw-semibold">SunuKopar</h2>
       <p class="font-size-16 text-white mb-0">Une application sécurisée et complète.</p>
     </li>
     <li class="swiper-slide">
-      <img src="https://res-console.cloudinary.com/dtossohz4/thumbnails/v1/image/upload/v1744196323/eHh4eHh4eHh4eHh4eHh4eHh4eF9zd2Fmbmg=/drilldown" class="signin-img img-fluid mb-5 rounded-3" alt="image"> 
+      <img src="https://media.licdn.com/dms/image/v2/C4E0BAQENBMJvOEvRig/company-logo_200_200/company-logo_200_200/0/1630563615927/kopar_logo?e=2147483647&v=beta&t=e2SWXK7L4K8j1yspQGW9Da604C_z7g5eblg9XAg9cUs" class="signin-img img-fluid mb-5 rounded-3" alt="image"> 
       <h2 class="mb-3 text-white fw-semibold">Connecté au monde</h2>
       <p class="font-size-16 text-white mb-0">Il est bien connu qu’un lecteur sera distrait par le contenu lisible d’une page.</p>
     </li>
     <li class="swiper-slide">
-      <img src="https://res-console.cloudinary.com/dtossohz4/thumbnails/v1/image/upload/v1744196323/eHh4eHh4eHh4eHh4eHh4eHh4eF9zd2Fmbmg=/drilldown" class="signin-img img-fluid mb-5 rounded-3" alt="image">
+      <img src="https://media.licdn.com/dms/image/v2/C4E0BAQENBMJvOEvRig/company-logo_200_200/company-logo_200_200/0/1630563615927/kopar_logo?e=2147483647&v=beta&t=e2SWXK7L4K8j1yspQGW9Da604C_z7g5eblg9XAg9cUs" class="signin-img img-fluid mb-5 rounded-3" alt="image">
       <h2 class="mb-3 text-white fw-semibold">Ensemble, c'est mieux</h2>
       <p class="font-size-16 text-white mb-0">Unis pour plus d'efficacité et de sécurité.</p>
     </li>
@@ -101,7 +101,7 @@ table.dataTable{width:100%;margin:0 auto;clear:both;border-collapse:separate;bor
             <div class="col-md-6">
               <div class="sign-in-from text-center">
                 <a href="../index.html" class="d-inline-flex align-items-center justify-content-center gap-2">
-                  <h2 class="logo-title">Teranga Cash</h2>
+                  <h2 class="logo-title">SunuKopar</h2>
                 </a>
                 <p class="mt-3 font-size-16">Une plateforme conçue pour vous connecter avec<br/>le monde social</p>
                 
