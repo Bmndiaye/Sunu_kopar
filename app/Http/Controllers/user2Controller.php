@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
+// TEST PUSH GITHUB
+
 class UserController extends Controller
 {
     /**
